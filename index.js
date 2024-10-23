@@ -1,5 +1,6 @@
 const express = require('express');
 const socket = require('socket.io');
+const path = require('path');
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -15,7 +16,7 @@ let typingUsers = new Set(); // 用于追踪当前正在输入的用户
 
 app.use(express.static('public'));
 app.get('/', (req, res) => {
-  res.render('index.html');
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 io.on('connection', (socket) => {
   console.log('User has connected');
