@@ -14,7 +14,9 @@ const activeUsers = new Set();
 let typingUsers = new Set(); // 用于追踪当前正在输入的用户
 
 app.use(express.static('public'));
-
+app.get('/', (req, res) => {
+  res.render('index.html');
+});
 io.on('connection', (socket) => {
   console.log('User has connected');
 
