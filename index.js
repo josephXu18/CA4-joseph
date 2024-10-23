@@ -14,10 +14,11 @@ const io = socket(server);
 const activeUsers = new Set();
 let typingUsers = new Set(); // 用于追踪当前正在输入的用户
 
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
 });
+
 io.on('connection', (socket) => {
   console.log('User has connected');
 
