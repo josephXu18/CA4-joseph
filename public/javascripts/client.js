@@ -27,14 +27,14 @@ const addUser = (userName) => {
   const userList = document.getElementById('userList'); // 获取用户列表容器
   // Check if user already exists
   if (document.querySelector(`.${userName}-userlist`)) {
-    return; // 如果用户已在列表中，直接返回
+    return;
   }
   const userBox = `
     <div class="chat_id ${userName}-userlist">
       <h5>${userName}</h5>
     </div>
   `;
-  userList.innerHTML += userBox; // 更新用户列表容器
+  userList.innerHTML += userBox;
 };
 
 // Initialize user connection
@@ -77,13 +77,11 @@ inputField.addEventListener('input', () => {
     socket.emit('typing', userName); // Notify server that the user is typing
   }
 
-  // 每次输入时重置定时器
   clearTimeout(typingTimeout);
 
-  // 在 2 秒后如果没有继续输入，则发送 "stop typing" 事件
   typingTimeout = setTimeout(() => {
     isTyping = false;
-    socket.emit('stop typing', userName); // 通知服务器用户停止输入
+    socket.emit('stop typing', userName);
   }, 2000);
 });
 // Listen for typing events
@@ -117,12 +115,12 @@ const updateTypingIndicator = () => {
 // Display a new message
 socket.on('chat message', function (data) {
   addNewMessage({ user: data.nick, message: data.message });
-  hideTypingIndicator(); // 隐藏输入指示
+  hideTypingIndicator();
 });
 
 changeUsernameButton.addEventListener('click', () => {
   const newUsername = prefixedUserName + usernameInput.value.trim();
-  if (newUsername && newUsername !== userName) { // 确保新用户名与当前用户名不同
+  if (newUsername && newUsername !== userName) {
     const oldUsername = userName;
     userName = newUsername; // Update userName to new value
     socket.emit('change username', { oldUsername, newUsername });
