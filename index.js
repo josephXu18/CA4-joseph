@@ -16,7 +16,7 @@ let typingUsers = new Set(); // 用于追踪当前正在输入的用户
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+  res.sendFile(path.resolve(__dirname, 'public', 'Index.html'));
 });
 
 io.on('connection', (socket) => {
