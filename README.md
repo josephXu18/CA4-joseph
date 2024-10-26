@@ -16,7 +16,14 @@ This is a real-time chat server built with Node.js and Socket.io. The server all
 
 ## Installation
 
-If it's the first time running the server, please install all the requirements with the following code.
+If it's the first time running the server, please install all the requirements with the following code. But in this case, the environment is already set up and ready to start.
+use ```cd CA4-joseph``` command to go into the CA4-joseph folder
+You can skip the installation of dependencies and start the server if you wish.
 ```
 npm install express socket.io
 ```
+After installation, The last step is to run
+```
+node index.js
+```
+and the server should be started on port 3000, you will be able to see the website by clicking the **BOX URL** from the top navigation bar.
