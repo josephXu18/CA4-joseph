@@ -105,4 +105,87 @@ body {
   transform: translateY(0); /* 移位动画结束时回到原位 */
 }
 
+.user-list {
+    max-height: 300px; /* 限制用户列表的最大高度 */
+    overflow-y: auto; /* 允许垂直滚动 */
+    margin-top: 10px;
+}
+/* Styling for the Change Username Section */
+/* Compact Styling for the Change Username Section */
+.change-username {
+    margin-top: 15px;
+    text-align: center;
+    padding: 6px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.change-username input[type="text"] {
+    width: 50%;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    font-size: 14px;
+    margin-right: 6px;
+    transition: border 0.3s ease;
+}
+
+.change-username input[type="text"]:focus {
+    border: 1px solid #007bff;
+}
+
+.change-username button {
+    padding: 6px 12px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.change-username button:hover {
+    background-color: #0056b3;
+}
+footer {
+    background-color: #333; /* Dark background for footer */
+    color: white; /* White text */
+    text-align: center; /* Centered text */
+    padding: 10px 0; /* Padding for footer */
+}
+
+
+
+/* Navigation Bar Styling */
+nav {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style: none;
+    text-align: center;
+
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    color: #ff9900;
+}
+
+
 

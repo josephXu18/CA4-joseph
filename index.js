@@ -63,4 +63,16 @@ io.on('connection', (socket) => {
     io.emit('stop typing', userName); // 广播给其他用户
     console.log(`Typing users: ${[...typingUsers]}`);
   });
+
+socket.on('change username', ({ oldUsername, newUsername }) => {
+  // Remove the old username from the active users set
+  activeUsers.delete(oldUsername);
+
+  // Update the user's socket ID to the new username
+  socket.userId = newUsername; // Update the user's ID
+  activeUsers.add(newUsername); // Add new username to the active users set
+
+  io.emit('username changed', { oldUsername, newUsername });
+});
+
 });

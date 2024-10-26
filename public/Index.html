@@ -2,12 +2,52 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Index page</title>
-    <link rel="stylesheet" href="stylesheets/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal Blog</title>
+    <link rel="stylesheet" href="stylesheets/IndexStyle.css">
 </head>
 <body>
-<h1>Index page</h1>
-<p><a href="chatRoom.html">Chat Room</a></p>
+
+<!-- Navigation Bar -->
+<nav>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="chatRoom.html">Chat Room</a></li>
+
+    </ul>
+</nav>
+
+<!-- Introduction Section -->
+<header class="intro">
+    <h1>Welcome to My Personal Blog</h1>
+    <p>Join me on my journey as I explore various topics, share insights, and express my thoughts.</p>
+</header>
+
+<!-- Blog Post Section -->
+<main class="blog-posts">
+    <article class="post">
+        <h2>Intention</h2>
+        <p class="post-date">Edited on: October 16, 2024</p>
+        <p class="post-excerpt">
+Creating this personal blog allows me to share my unique perspectives, document my learning journey, and explore topics I’m passionate about. It serves as both a portfolio and a platform for connecting with others, helping me establish an online presence that showcases my skills, growth, and my learning path.</p>
+    </article>
+    <article class="post">
+        <h2>Designing this page</h2>
+        <p class="post-date">Edited on: October 20, 2024</p>
+        <p class="post-excerpt">I built this site using HTML, CSS, and JavaScript for the front end, with Node.js and Socket.io for the backend functionality. The structure is crafted with HTML, while CSS provides styling for a clean, professional look. I used JavaScript to add interactivity, such as a chat room feature, where I implemented real-time messaging with Socket.io to enable user connections, display active users, and manage typing notifications. Node.js serves as the server, handling requests and storing message history so new users can see past conversations.</p>
+    </article>
+    <article class="post">
+        <h2>Learning path</h2>
+        <p class="post-date">Edited on: October 25, 2024</p>
+        <p class="post-excerpt">Building this site has deepened my understanding of both front-end and back-end development. I gained hands-on experience with HTML and CSS for structuring and styling, making the design clean and user-friendly. Implementing JavaScript allowed me to add interactive features, while using Node.js and Socket.io taught me how to handle real-time communication and manage server-client relationships effectively. I also learned about managing user states, such as displaying active users and tracking typing status, which helped me think more critically about user experience. Overall, this project enhanced my problem-solving skills and gave me confidence in developing dynamic, responsive web applications.</p>
+    </article>
+</main>
+
+<!-- Footer Section -->
+<footer>
+    <p>&copy; 2024 [Joseph]. All rights reserved.</p>
+</footer>
 
 </body>
 </html>

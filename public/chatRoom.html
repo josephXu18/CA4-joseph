@@ -6,29 +6,45 @@
     <link rel="stylesheet" href="stylesheets/style.css">
 </head>
 <body>
-  <div class="sidenav">
-    <div class="inbox__people">
-      <h4>Active Users</h4>
+<nav>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="chatRoom.html">Chat Room</a></li>
+    </ul>
+</nav>
+    <div class="sidenav">
+        <div class="inbox__people">
+            <h4>Active Users</h4>
+            <div class="user-list" id="userList"></div> <!-- 新增用户列表容器 -->
+        </div>
     </div>
-  </div>
 
-  <div class="content">
-    <div class="messages__history"></div>
+    <div class="content">
+        <div class="messages__history"></div>
 
-    <!-- 添加正在输入提示元素 -->
-    <div class="typing-indicator" style="display: none;">Someone is typing...</div>
+        <!-- 添加正在输入提示元素 -->
+        <div class="typing-indicator" style="display: none;">Someone is typing...</div>
 
-    <form class="message_form">
-      <input type="text" class="message_form__input" placeholder="Type a message" />
-      <button class="message_form__button" type="submit">Send</button>
-    </form>
-  </div>
+        <form class="message_form">
+            <input type="text" class="message_form__input" placeholder="Type a message" />
+            <button class="message_form__button" type="submit">Send</button>
+        </form>
+    </div>
+
     <div class="notification-container" id="notificationContainer"></div>
 
-  <!-- Include Socket.io client script -->
-  <script src="/socket.io/socket.io.js"></script>
+    <div class="change-username">
+        <input type="text" class="username_input" placeholder="Change your username" />
+        <button class="change_username_button">Change Username</button>
+    </div>
 
-  <!-- Include your client-side JavaScript -->
-  <script src="javascripts/client.js"></script>
+    <!-- Include Socket.io client script -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- Include your client-side JavaScript -->
+    <script src="javascripts/client.js"></script>
 </body>
+<footer>
+    <p>&copy; 2024 [Joseph]. All rights reserved.</p>
+</footer>
 </html>

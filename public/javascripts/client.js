@@ -8,12 +8,13 @@ const inputField = document.querySelector('.message_form__input');
 const messageBox = document.querySelector('.messages__history');
 const typingIndicator = document.querySelector('.typing-indicator'); // Typing indicator element
 const notificationContainer = document.getElementById('notificationContainer'); // 提示框容器
-
+const usernameInput = document.querySelector('.username_input');
+const changeUsernameButton = document.querySelector('.change_username_button');
 let userName = '';
 let isTyping = false;
 let typingTimeout;
 let typingUsers = []; // Array to keep track of all typing users
-
+const prefixedUserName = `User-${userName}`;
 // Prompt the user for a username (for demonstration purposes)
 const newUserConnected = () => {
   userName = `User-${Math.floor(Math.random() * 1000000)}`;
@@ -23,15 +24,17 @@ const newUserConnected = () => {
 
 // Add a user to the active users list
 const addUser = (userName) => {
+  const userList = document.getElementById('userList'); // 获取用户列表容器
+  // Check if user already exists
   if (document.querySelector(`.${userName}-userlist`)) {
-    return;
+    return; // 如果用户已在列表中，直接返回
   }
   const userBox = `
     <div class="chat_id ${userName}-userlist">
       <h5>${userName}</h5>
     </div>
   `;
-  inboxPeople.innerHTML += userBox;
+  userList.innerHTML += userBox; // 更新用户列表容器
 };
 
 // Initialize user connection
@@ -43,13 +46,13 @@ socket.on('new user', function (data) {
     addUser(user);
   });
 
-  // 显示每个新用户加入的提示框
-  showUserNotification(data[data.length - 1]); // 传递最新加入的用户
+  showUserNotification(`${data[data.length - 1]} has joined the chat!`);
 });
 
 // Remove user from the list when they disconnect
 socket.on('user disconnected', function (userName) {
   document.querySelector(`.${userName}-userlist`).remove();
+  showUserNotification(`${userName} has left the chat.`);
 });
 
 // Send a chat message
@@ -83,11 +86,59 @@ inputField.addEventListener('input', () => {
     socket.emit('stop typing', userName); // 通知服务器用户停止输入
   }, 2000);
 });
+// Listen for typing events
+socket.on('typing', (userName) => {
+  if (!typingUsers.includes(userName)) {
+    typingUsers.push(userName);
+  }
+  updateTypingIndicator(); // Call to update the display
+});
+
+// Listen for stop typing events
+socket.on('stop typing', (userName) => {
+  typingUsers = typingUsers.filter((user) => user !== userName);
+  updateTypingIndicator(); // Call to update the display
+});
+
+// Function to update the typing indicator
+const updateTypingIndicator = () => {
+  if (typingUsers.length > 0) {
+    typingIndicator.style.display = 'block';
+    typingIndicator.innerText = `${typingUsers.join(', ')} ${typingUsers.length === 1 ? 'is' : 'are'} typing...`;
+  } else {
+    typingIndicator.style.display = 'none';
+  }
+};
+
 
 // Display a new message
 socket.on('chat message', function (data) {
   addNewMessage({ user: data.nick, message: data.message });
   hideTypingIndicator(); // 隐藏输入指示
+});
+
+changeUsernameButton.addEventListener('click', () => {
+  const newUsername = prefixedUserName + usernameInput.value.trim();
+  if (newUsername && newUsername !== userName) { // 确保新用户名与当前用户名不同
+    const oldUsername = userName;
+    userName = newUsername; // Update userName to new value
+    socket.emit('change username', { oldUsername, newUsername });
+    usernameInput.value = ''; // Clear the input field
+  }
+});
+
+
+// Listen for username change
+socket.on('username changed', (data) => {
+  const { oldUsername, newUsername } = data;
+
+  // Remove the old username from the list
+  const oldUserElement = document.querySelector(`.${oldUsername}-userlist`);
+  if (oldUserElement) {
+    oldUserElement.querySelector('h5').innerText = newUsername; // Update display text
+    oldUserElement.classList.remove(`${oldUsername}-userlist`);
+    oldUserElement.classList.add(`${newUsername}-userlist`); // Update class to reflect new username
+  }
 });
 
 // Function to add a new message to the chat window
@@ -111,24 +162,24 @@ const addNewMessage = ({ user, message }) => {
 };
 
 // Function to show user notification when new user joins
-const showUserNotification = (newUserName) => {
-  // 创建提示框的DOM元素
+const showUserNotification = (message) => {
+  // Create a notification element
   const notification = document.createElement('div');
   notification.classList.add('notification');
-  notification.textContent = `${newUserName} has joined the chat!`;
+  notification.textContent = message;
 
-  // 将提示框添加到容器中
+  // Append the notification to the container
   notificationContainer.appendChild(notification);
 
-  // 使用 setTimeout 来显示提示框
+  // Show the notification with a transition
   setTimeout(() => {
     notification.classList.add('show');
   }, 100);
 
-  // 3 秒后自动移除提示框
+  // Automatically remove the notification after 3 seconds
   setTimeout(() => {
     notification.classList.remove('show');
-    // 再等待过渡完成后移除提示框
+    // Remove the notification element after the transition
     setTimeout(() => {
       notificationContainer.removeChild(notification);
     }, 500);
