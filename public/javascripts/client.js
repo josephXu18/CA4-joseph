@@ -100,15 +100,18 @@ socket.on('stop typing', (userName) => {
   updateTypingIndicator(); // Call to update the display
 });
 
-// Function to update the typing indicator
 const updateTypingIndicator = () => {
-  if (typingUsers.length > 0) {
+  // Filter out the current user from the typingUsers list
+  const otherTypingUsers = typingUsers.filter((user) => user !== userName);
+
+  if (otherTypingUsers.length > 0) {
     typingIndicator.style.display = 'block';
-    typingIndicator.innerText = `${typingUsers.join(', ')} ${typingUsers.length === 1 ? 'is' : 'are'} typing...`;
+    typingIndicator.innerText = `${otherTypingUsers.join(', ')} ${otherTypingUsers.length === 1 ? 'is' : 'are'} typing...`;
   } else {
     typingIndicator.style.display = 'none';
   }
 };
+
 
 
 // Display a new message
